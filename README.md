@@ -205,7 +205,10 @@ $form->field($model, 'deletedOption')->checkbox();
 
 ### Собственные статические методы поведения
 
-```php public static integer modifyBitmask(int $mask, int $bit, boolean $exists) ```
+#### Добавить бит в маску\Убрать биз из маски
+```php
+public static integer modifyBitmask(int $mask, int $bit, boolean $exists)
+```
 ```php
 $mask = 0b00100001;
 $bit  = 0b00000100;
@@ -215,8 +218,10 @@ $options = BitmaskBehavior::modifyBitmask($mask, $bit, true); // 0b00100101
 // Убрать бит
 $options = BitmaskBehavior::modifyBitmask($mask, $bit, false); // 0b00100001
 ```
-
-```php public static boolean[] parseBitmask(int $mask, int[] $fields) ```
+#### Получить массив битов на основе битовой маски
+```php
+public static boolean[] parseBitmask(int $mask, int[] $fields)
+```
 ```php
 $mask = 0b00100000;
 $fields = [
@@ -228,6 +233,7 @@ $values = BitmaskBehavior::parseBitmask($mask, $fields);
 print_r($values); // ['firstOption' => false, 'secondOption' => true]
 ```
 
+#### Создать битовую маску на основе массива битов
 ```php public static int makeBitmask(boolean[] $values, int[] $fields) ```
 ```php
 $fields = [
