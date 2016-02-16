@@ -40,9 +40,9 @@ to the `require` section of your `composer.json` file.
 
 ### Расширение содержит три класса
 
-- [#BitmaskBehavior](`BitmaskBehavior`) - создание полей модели на основе битовой маски
-- [#BitmaskValidator](`BitmaskValidator`) - валидация основанная на битах
-- [#BitmaskFieldsValidator](`BitmaskFieldsValidator`) - валидация основанная на названиях полей
+- [`BitmaskBehavior`](#BitmaskBehavior) - создание полей модели на основе битовой маски
+- [`BitmaskValidator`](#BitmaskValidator) - валидация основанная на битах
+- [`BitmaskFieldsValidator`](#BitmaskFieldsValidator) - валидация основанная на названиях полей
 
 
 ## BitmaskBehavior
