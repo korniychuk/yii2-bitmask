@@ -10,7 +10,22 @@ use yii\validators\Validator;
 
 
 /**
- * Class BitmapValidator
+ * # Allow to set only specified bits. Based on BITs.
+ *
+ * ## Usage
+ * ```php
+ * public function rules()
+ * {
+ *   return [
+ *     ['options', BitmaskValidator::className(), 'mask' => 1<<3 | 1<<4 | 1<<6],
+ *     // or with translation
+ *     ['options', BitmaskValidator::className(), 'mask' => 1<<3 | 1<<4 | 1<<6, 'message' => ...],
+ *     // or using constants
+ *     ['options', BitmaskValidator::className(), 'mask' => static::OPT_SPAM],
+ *   ];
+ * }
+ * ```
+ *
  * @package common\behaviors
  */
 class BitmaskValidator extends Validator

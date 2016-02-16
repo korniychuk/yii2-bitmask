@@ -11,10 +11,107 @@ use yii\db\ActiveRecord;
 
 
 /**
- * Class BitmaskBehavior
+ * # Bitmask Behavior and Validators for Yii 2
+ *
+ * ## Model configure
+ *
+ * ```php
+ * use ancor\bitmask\BitmaskBehavior;
+ *
+ * /**
+ *  * @property integer $options
+ *  * ...
+ *  * @property string $spamOption
+ *  * @property string $deletedOption
+ *  * ...
+ *  * /
+ * class User extends \yii\db\ActiveRecord
+ * {
+ *     const OPT_SPAM    = 1<<0;
+ *     const OPT_DELETED = 1<<1;
+ *
+ *     public function behaviors()
+ *     {
+ *         return [
+ *             'bitmask' => [
+ *                 'options' => [
+ *                     'spamOption'    => static::OPT_SPAM,
+ *                     'deletedOption' => static::OPT_DELETED,
+ *                 ],
+ *                 // 'bitmaskAttribute' => 'options', // an attribute which is the mask itself
+ *             ],
+ *         ];
+ *     }
+ *
+ *     public function rules()
+ *     {
+ *         return [
+ *             [['spamOption', 'deletedOption'], 'safe'],
+ *         ];
+ *     }
+ *
+ *     public function attributeLabels()
+ *     {
+ *         return [
+ *             ...
+ *             'spamOption'       => 'This user is spammer',
+ *             'emailNotVerified' => 'User is deleted',
+ *             ...
+ *         ];
+ *     }
+ * }
+ * ```
+ *
+ * ## Usage
+ *
+ * ```php
+ * $model = new User();
+ *
+ * echo $model->options; // 0
+ *
+ * // Назначить бит
+ * $model->spamOption = true; // $model->options == User::OPT_SPAM == 1<<0 == 1
+ * // Это эквивалентно следующей строке
+ * $model->options = $model->options | User::OPT_SPAM;
+ *
+ * // Снять бат
+ * $model->spamOption = false; // $model->options == 0
+ * // Это эквивалентно следующей строке
+ * $model->options = $model->options & ~User::OPT_SPAM;
+ *
+ * // Проверить наличие бита
+ * if ($model->spamOption) ...
+ * // Это эквивалентно следующей строке
+ * if ($model->options & User::OPT_SPAM) ...
+ * ```
+ *
+ * ### Групповое присвоение
+ *
+ * ```php
+ * // Предположим пришла форма
+ * $post = [
+ *   'User' => [
+ *     ...
+ *     'spamOption'    => false,
+ *     'deletedOption' => true,
+ *     ...
+ *   ],
+ * ];
+ *
+ * /**
+ *  * Massive assignment
+ *  * /
+ * echo $model->options; // 0
+ * $model->load($post);
+ *
+ * echo $model->options; // $model->options == 1<<1 == 2
+ * var_dump($model->spamOption);    // false
+ * var_dump($model->deletedOption); // true
+ * ```
+ *
  * @property string[] bitmaskFields read only
  *
- * @package common\behaviors
+ * @package ancor/bitmask
  */
 class BitmaskBehavior extends Behavior
 {

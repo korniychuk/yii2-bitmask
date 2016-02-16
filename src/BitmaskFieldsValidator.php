@@ -10,8 +10,20 @@ use yii\validators\Validator;
 
 
 /**
- * Class BitmaskValidator
- * @package common\behaviors
+ * # Allow to set only specified bits. Based on fields.
+ *
+ * ## Usage
+ * ```php
+ * return [
+ *   [
+ *     ['spamOption', 'deletedOption'],
+ *     BitmaskFieldsValidator::className(),
+ *     // 'maskAttribute' => 'options', // По умолчанию
+ *   ],
+ * ];
+ * ```
+ *
+ * @package ancor/bitmask
  */
 class BitmaskFieldsValidator extends Validator
 {
