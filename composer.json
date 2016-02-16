@@ -1,0 +1,21 @@
+{
+    "name": "ancor/yii2-bitmask",
+    "description": "Bit mask behavior and validators for models",
+    "type": "yii2-extension",
+    "license": "GPLv3",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Anton Korniychuk",
+            "email": "ancor.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "^2.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "ancor\\bitmask\\" : "src"
+        }
+    }
+}
