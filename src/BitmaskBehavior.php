@@ -108,8 +108,10 @@ use yii\db\ActiveRecord;
  * var_dump($model->spamOption);    // false
  * var_dump($model->deletedOption); // true
  * ```
+ * @todo: Initialization value is not reflected in the $bitmaskAttribute.
  *
- * @property string[] bitmaskFields read only
+ * @property integer[] bitmaskFields read only. Key is name, value is bit-number
+ * @property boolean[] bitmaskValues read only. Key is name, value is boolean value
  *
  * @package ancor/bitmask
  */
@@ -171,7 +173,7 @@ class BitmaskBehavior extends Behavior
                     throw new InvalidConfigException('The "' . $name . '" field MUST have bit mask.');
                 }
                 $this->_fields[$name] = $field[0];
-                $this->$name = isset($field[1]) ? $field[1] : false; // bitmask_field will be updated too
+                $this->_values[$name] = isset($field[1]) ? $field[1] : false; // bitmask_field will be updated too
             } else {
                 $this->_fields[$name] = $field;
                 $this->_values[$name] = false;
