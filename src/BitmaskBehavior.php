@@ -170,11 +170,11 @@ class BitmaskBehavior extends Behavior
                 if ( !isset($field[0])) {
                     throw new InvalidConfigException('The "' . $name . '" field MUST have bit mask.');
                 }
-                $this->_values[$name] = $field[0];
-                $this->_fields[$name] = $field[1];
+                $this->_fields[$name] = $field[0];
+                $this->$name = isset($field[1]) ? $field[1] : false; // bitmask_field will be updated too
             } else {
-                $this->_values[$name] = false;
                 $this->_fields[$name] = $field;
+                $this->_values[$name] = false;
             }
         }
     }
@@ -288,7 +288,8 @@ class BitmaskBehavior extends Behavior
     public function __set($name, $value)
     {
         /* @var ActiveRecord $owner */
-        $owner = $this->owner;;
+        $owner = $this->owner;
+        $value = (bool)$value;
 
         if (isset($this->_fields[$name])) {
             $this->_values[$name] = $value;

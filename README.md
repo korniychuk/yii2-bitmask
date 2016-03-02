@@ -109,8 +109,9 @@ echo $model->options; // 0
 $model->spamOption = true; // $model->options == User::OPT_SPAM == 1<<0 == 1
 // Это эквивалентно следующей строке
 $model->options = $model->options | User::OPT_SPAM;
+// Внимание! При присваивании значения - любое значение принудительно преобразуется в boolean
 
-// Снять бат
+// Снять бит
 $model->spamOption = false; // $model->options == 0
 // Это эквивалентно следующей строке
 $model->options = $model->options & ~User::OPT_SPAM;
