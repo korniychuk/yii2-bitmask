@@ -269,7 +269,7 @@ class BitmaskBehavior extends Behavior
         $oldBitmask = $model->getOldAttribute($this->bitmaskAttribute);
         $oldValues = static::parseBitmask($oldBitmask, $this->_fields);
 
-        return isset($oldValues[$field]) ? $this->_values[$field] : null;
+        return isset($oldValues[$field]) ? $oldValues[$field] : null;
     } // end getOldBit()
 
     /**
