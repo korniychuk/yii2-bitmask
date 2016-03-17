@@ -107,6 +107,11 @@ use yii\db\ActiveRecord;
  * echo $model->options; // $model->options == 1<<1 == 2
  * var_dump($model->spamOption);    // false
  * var_dump($model->deletedOption); // true
+ *
+ * /**
+ *  * Also you can get value of old attribute.
+ *  * /
+ * $model->getOldBit('spamOption');
  * ```
  * @todo: Initialization value is not reflected in the $bitmaskAttribute.
  *
@@ -248,6 +253,24 @@ class BitmaskBehavior extends Behavior
     {
         return $this->_values;
     } // end getBitmaskValues()
+
+    /**
+     * Get value of old bitmask field
+     *
+     * @param string $field field name
+     *
+     * @return bool|null is this bit checked in old bitmask?
+     */
+    public function getOldBit($field)
+    {
+        /** @var ActiveRecord $model */
+        $model = $this->owner;
+
+        $oldBitmask = $model->getOldAttribute($this->bitmaskAttribute);
+        $oldValues = static::parseBitmask($oldBitmask, $this->_fields);
+
+        return isset($oldValues[$field]) ? $this->_values[$field] : null;
+    } // end getOldBit()
 
     /**
      * @return void

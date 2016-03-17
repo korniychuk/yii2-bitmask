@@ -205,6 +205,9 @@ $form->field($model, 'deletedOption')->checkbox();
 ]
 ```
 
+```php public boolean getOldBit(string $field) ```
+Возвращает значение "старого" атрибута. (Работает через вызов `->getOldAttribute()`)
+
 
 ### Собственные статические методы поведения
 
